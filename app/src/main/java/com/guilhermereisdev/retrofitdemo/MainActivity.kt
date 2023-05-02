@@ -12,16 +12,24 @@ import com.guilhermereisdev.retrofitdemo.model.AlbumsItem
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var retService: AlbumService
+    private lateinit var tvAlbums: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val tvAlbums: TextView = findViewById(R.id.tv_albums)
+        tvAlbums = findViewById(R.id.tv_albums)
 
-        val retService = RetrofitInstance
+        retService = RetrofitInstance
             .getRetrofitInstance()
             .create(AlbumService::class.java)
 
+        getRequest()
+        getRequestWithPathParameter()
+    }
+
+    private fun getRequest() {
         val responseLiveData: LiveData<Response<Albums>> = liveData {
             val response = retService.getAlbums()
 //            Exemplo usando Query Parameter
@@ -41,18 +49,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
-////        Exemplo usando Path Parameter
-//        val responseLiveDataPath: LiveData<Response<AlbumsItem>> = liveData {
-//            val response = retService.getSingleAlbum(7)
-//            emit(response)
-//        }
-//
-//        responseLiveDataPath.observe(this) {
-//            val result = "Album ID: ${it.body()?.id}\n" +
-//                    "Album title: ${it.body()?.title}\n" +
-//                    "User ID: ${it.body()?.userId}\n\n"
-//            tvAlbums.append(result)
-//        }
+    private fun getRequestWithPathParameter() {
+        val responseLiveDataPath: LiveData<Response<AlbumsItem>> = liveData {
+            val response = retService.getSingleAlbum(7)
+            emit(response)
+        }
+
+        responseLiveDataPath.observe(this) {
+            val result = "Album ID: ${it.body()?.id}\n" +
+                    "Album title: ${it.body()?.title}\n" +
+                    "User ID: ${it.body()?.userId}\n\n"
+            tvAlbums.append(result)
+        }
     }
 }
