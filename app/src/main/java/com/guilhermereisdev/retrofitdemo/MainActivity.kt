@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         val responseLiveData: LiveData<Response<Albums>> = liveData {
             val response = retService.getAlbums()
+//            val response = retService.getAlbumsFromUserID(3)
             emit(response)
         }
 
