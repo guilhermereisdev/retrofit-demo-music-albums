@@ -8,6 +8,7 @@ import androidx.lifecycle.liveData
 import com.guilhermereisdev.retrofitdemo.api.AlbumService
 import com.guilhermereisdev.retrofitdemo.api.RetrofitInstance
 import com.guilhermereisdev.retrofitdemo.model.Albums
+import com.guilhermereisdev.retrofitdemo.model.AlbumsItem
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val responseLiveData: LiveData<Response<Albums>> = liveData {
             val response = retService.getAlbums()
+//            Exemplo usando Query Parameter
 //            val response = retService.getAlbumsFromUserID(3)
             emit(response)
         }
@@ -39,5 +41,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+////        Exemplo usando Path Parameter
+//        val responseLiveDataPath: LiveData<Response<AlbumsItem>> = liveData {
+//            val response = retService.getSingleAlbum(7)
+//            emit(response)
+//        }
+//
+//        responseLiveDataPath.observe(this) {
+//            val result = "Album ID: ${it.body()?.id}\n" +
+//                    "Album title: ${it.body()?.title}\n" +
+//                    "User ID: ${it.body()?.userId}\n\n"
+//            tvAlbums.append(result)
+//        }
     }
 }
