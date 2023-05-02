@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
             .create(AlbumService::class.java)
 
         getRequest()
-        getRequestWithPathParameter()
+//        getRequestWithPathParameter()
+//        uploadAlbum()
     }
 
     private fun getRequest() {
@@ -62,6 +63,21 @@ class MainActivity : AppCompatActivity() {
                     "Album title: ${it.body()?.title}\n" +
                     "User ID: ${it.body()?.userId}\n\n"
             tvAlbums.append(result)
+        }
+    }
+
+    private fun uploadAlbum() {
+        val album = AlbumsItem(0, "Title", 7)
+        val postResponse: LiveData<Response<AlbumsItem>> = liveData {
+            val response = retService.uploadAlbum(album)
+            emit(response)
+        }
+
+        postResponse.observe(this) {
+            val result = "Album ID: ${it.body()?.id}\n" +
+                    "Album title: ${it.body()?.title}\n" +
+                    "User ID: ${it.body()?.userId}\n\n"
+            tvAlbums.text = result
         }
     }
 }
