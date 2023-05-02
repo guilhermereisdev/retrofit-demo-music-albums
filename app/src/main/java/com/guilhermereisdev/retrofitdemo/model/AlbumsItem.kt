@@ -1,5 +1,4 @@
-package com.guilhermereisdev.retrofitdemo
-
+package com.guilhermereisdev.retrofitdemo.model
 
 import com.google.gson.annotations.SerializedName
 

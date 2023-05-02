@@ -1,4 +1,4 @@
-package com.guilhermereisdev.retrofitdemo
+package com.guilhermereisdev.retrofitdemo.api
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitInstance {
 
     companion object {
-        val BASE_URL = "https://jsonplaceholder.typicode.com"
+        private const val BASE_URL = "https://jsonplaceholder.typicode.com"
 
         private val logging = HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY)
