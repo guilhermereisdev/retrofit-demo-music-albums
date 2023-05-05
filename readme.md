@@ -1,4 +1,4 @@
-# retrofit-demo-music-albums
+# Retrofit Demo: Music Albums
 
 Uma listagem com todos os álbuns musicais em nuvem.
 
